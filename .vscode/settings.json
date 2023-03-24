@@ -1,0 +1,19 @@
+{
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.py": "python",
+    },
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.terminal.activateEnvironment": true,
+    "python.formatting.blackPath": "./venv/bin/black",
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintPath": "./venv/bin/pylint",
+    "python.linting.pylintArgs": [
+        "--disable=E0401"
+    ],
+    "editor.rulers": [
+        88
+    ]
+}
