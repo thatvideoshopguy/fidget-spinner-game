@@ -11,7 +11,20 @@ import sys
 import math
 import pygame
 import pygame.gfxdraw
-from app.config import config
+from .config import (
+    WINDOW_WIDTH,
+    WINDOW_HEIGHT,
+    RED,
+    GREEN,
+    BLUE,
+    BLACK,
+    WHITE,
+    LINE_WIDTH,
+    SPINNER_DOT_SIZE,
+    FLICK_ACCELERATION_INCREMENT,
+    FLICK_DECELERATION_INCREMENT,
+    FPS,
+)
 
 
 class FidgetSpinnerGame:
@@ -29,15 +42,13 @@ class FidgetSpinnerGame:
         """Initialize the game and create a PyGame window."""
         self.state = {
             "rotation_angle": 0,
-            "rotation_direction": 0,
-            "rotation_acceleration": 0,
+            "rotation_direction": 0.0,
+            "rotation_acceleration": 0.0,
         }
-        self.colors = [config["red"], config["green"], config["blue"]]
+        self.colors = [RED, GREEN, BLUE]
 
         pygame.init()
-        self.screen = pygame.display.set_mode(
-            (config["window_width"], config["window_width"])
-        )
+        self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
         pygame.display.set_caption("Spinning Animation")
 
@@ -47,18 +58,18 @@ class FidgetSpinnerGame:
         Args:
             angle (int): The angle of the spinner.
         """
-        self.screen.fill(config["white"])
+        self.screen.fill(WHITE)
 
-        center_x = config["window_width"] // 2
-        center_y = config["window_width"] // 2
-        line_width_half = config["line_width"] // 2
+        center_x = WINDOW_WIDTH // 2
+        center_y = WINDOW_HEIGHT // 2
+        line_width_half = LINE_WIDTH // 2
 
         for i, color in zip(range(0, 360, 120), self.colors):
             x_axis = int(center_x + 100 * math.cos(math.radians(angle + i)))
             y_axis = int(center_y + 100 * math.sin(math.radians(angle + i)))
 
-            direction_x = x_axis - center_x
-            direction_y = y_axis - center_y
+            direction_x: float = x_axis - center_x
+            direction_y: float = y_axis - center_y
             dist = math.sqrt(direction_x * direction_x + direction_y * direction_y)
             direction_x /= dist
             direction_y /= dist
@@ -74,10 +85,10 @@ class FidgetSpinnerGame:
                     (x_axis + offset_x, y_axis - offset_y),
                     (x_axis - offset_x, y_axis + offset_y),
                 ],
-                config["black"],
+                BLACK,
             )
 
-            radius = config["spinner_dot_size"] // 2
+            radius = SPINNER_DOT_SIZE // 2
             pygame.gfxdraw.filled_circle(self.screen, x_axis, y_axis, radius, color)
             pygame.gfxdraw.aaellipse(self.screen, x_axis, y_axis, radius, radius, color)
 
@@ -86,16 +97,12 @@ class FidgetSpinnerGame:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE]:
-            self.state["rotation_acceleration"] += config[
-                "flick_acceleration_increment"
-            ]
+            self.state["rotation_acceleration"] += FLICK_ACCELERATION_INCREMENT
             self.state["rotation_direction"] = (
                 1 if self.state["rotation_acceleration"] >= 0 else -1
             )
         else:
-            self.state["rotation_acceleration"] -= config[
-                "flick_deceleration_increment"
-            ]
+            self.state["rotation_acceleration"] -= FLICK_DECELERATION_INCREMENT
             if self.state["rotation_acceleration"] < 0:
                 self.state["rotation_acceleration"] = 0
 
@@ -117,7 +124,7 @@ class FidgetSpinnerGame:
             self.draw_spinner(self.state["rotation_angle"])
 
             pygame.display.flip()
-            clock.tick(1000 // config["animation_interval"])
+            clock.tick(FPS)
 
 
 def main():

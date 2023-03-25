@@ -1,0 +1,18 @@
+"""Configuration file for the turtle spinner game. """
+
+# Window settings
+WINDOW_WIDTH = 420
+WINDOW_HEIGHT = 420
+WINDOW_X_OFFSET = 370
+WINDOW_Y_OFFSET = 0
+
+# Spinner settings
+SPINNER_DOT_SIZE = 120
+TURTLE_WIDTH = 20
+
+# Animation settings
+ANIMATION_INTERVAL = 20
+FLICK_TURN_INCREMENT = 10
+FORWARD_DISTANCE = 100
+BACKWARD_DISTANCE = 100
+SPINNER_ANGLE = 120

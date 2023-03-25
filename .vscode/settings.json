@@ -7,22 +7,21 @@
     "python.terminal.activateEnvironment": true,
     "python.formatting.blackPath": "./venv/bin/black",
     "python.formatting.provider": "black",
-    // "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintPath": "./venv/bin/pylint",
-    "python.linting.pylintArgs": [
-        // "--rcfile=pylintrc",
-        "--extension-pkg-whitelist=pygame",
-        "--extension-pkg-whitelist=turtle",
-        // "--disable=no-member",
-    ],
+    "python.linting.enabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.mypyPath": "./venv/bin/mypy",
     "python.linting.mypyArgs": [
+        "--python-version",
+        "3.11",
         "--ignore-missing-imports",
-        "--follow-imports=skip",
-        "--show-column-numbers",
-        "--show-error-codes",
+        "--warn-unused-configs",
+        "--check-untyped-defs",
+        "--strict-optional"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "./venv/bin/pylint",
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=pygame,turtle",
     ],
     "editor.rulers": [
         88

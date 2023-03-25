@@ -9,7 +9,19 @@ Typical usage example:
 """
 
 from turtle import Turtle, Screen, done
-from app.config import config
+from .config import (
+    WINDOW_HEIGHT,
+    WINDOW_WIDTH,
+    WINDOW_X_OFFSET,
+    WINDOW_Y_OFFSET,
+    SPINNER_DOT_SIZE,
+    TURTLE_WIDTH,
+    ANIMATION_INTERVAL,
+    FLICK_TURN_INCREMENT,
+    FORWARD_DISTANCE,
+    BACKWARD_DISTANCE,
+    SPINNER_ANGLE,
+)
 
 
 class FidgetSpinner:
@@ -25,56 +37,53 @@ class FidgetSpinner:
 
     def __init__(self):
         """Initializes the game."""
-        self.state = {"turn": 0}
+        self.state = {"rotation_speed": 0}
         self.turtle = Turtle()
         self.screen = Screen()
 
     def spinner(self):
         """Draws the fidget spinner."""
         self.turtle.clear()
-        angle = self.state["turn"] / 10
+        angle = self.state["rotation_speed"] / 10
         self.turtle.right(angle)
 
-        self.turtle.forward(config["forward_distance"])
-        self.turtle.dot(config["spinner_dot_size"], "red")
-        self.turtle.back(config["backward_distance"])
-        self.turtle.right(config["spinner_angle"])
+        colors = ["red", "green", "blue"]
 
-        self.turtle.forward(config["forward_distance"])
-        self.turtle.dot(config["spinner_dot_size"], "green")
-        self.turtle.back(config["backward_distance"])
-        self.turtle.right(config["spinner_angle"])
-
-        self.turtle.forward(config["forward_distance"])
-        self.turtle.dot(config["spinner_dot_size"], "blue")
-        self.turtle.back(config["backward_distance"])
-        self.turtle.right(config["spinner_angle"])
+        for color in colors:
+            self.turtle.forward(FORWARD_DISTANCE)
+            self.turtle.dot(SPINNER_DOT_SIZE, color)
+            self.turtle.back(BACKWARD_DISTANCE)
+            self.turtle.right(SPINNER_ANGLE)
 
         self.screen.update()
 
     def animate(self):
         """Animates the fidget spinner."""
-        if self.state["turn"] > 0:
-            self.state["turn"] -= 1
+        if self.state["rotation_speed"] > 0:
+            self.state["rotation_speed"] -= 1
 
         self.spinner()
-        self.screen.ontimer(self.animate, config["animation_interval"])
+        self.screen.ontimer(self.animate, ANIMATION_INTERVAL)
 
     def flick(self):
         """Increases the spinner's speed."""
-        self.state["turn"] += config["flick_turns_increment"]
+        self.state["rotation_speed"] += FLICK_TURN_INCREMENT
+
+    def configure_turtle(self):
+        """Configures the turtle object."""
+        self.turtle.hideturtle()
+        self.screen.tracer(False)
+        self.turtle.width(TURTLE_WIDTH)
 
     def setup(self):
         """Sets up the turtle graphics environment."""
         self.screen.setup(
-            config["window_width"],
-            config["window_height"],
-            config["window_x_offset"],
-            config["window_y_offset"],
+            WINDOW_WIDTH,
+            WINDOW_HEIGHT,
+            WINDOW_X_OFFSET,
+            WINDOW_Y_OFFSET,
         )
-        self.turtle.hideturtle()
-        self.screen.tracer(False)
-        self.turtle.width(config["turtle_width"])
+        self.configure_turtle()
 
     def register_events(self):
         """Registers event handlers."""
