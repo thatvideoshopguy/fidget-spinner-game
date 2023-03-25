@@ -19,3 +19,5 @@ WHITE = (255, 255, 255)
 FLICK_ACCELERATION_INCREMENT = 0.1
 FLICK_DECELERATION_INCREMENT = 0.1
 FPS = 60
+MOMENT_OF_INERTIA = 0.0005  # Estimate for a typical fidget spinner
+TIME_STEP = 0.01  # Default time step for the simulation

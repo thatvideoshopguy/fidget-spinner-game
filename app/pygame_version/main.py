@@ -24,6 +24,8 @@ from .config import (
     FLICK_ACCELERATION_INCREMENT,
     FLICK_DECELERATION_INCREMENT,
     FPS,
+    MOMENT_OF_INERTIA,
+    TIME_STEP,
 )
 
 
@@ -44,6 +46,7 @@ class FidgetSpinnerGame:
             "rotation_angle": 0,
             "rotation_direction": 0.0,
             "rotation_acceleration": 0.0,
+            "angular_velocity": 0.0,
         }
         self.colors = [RED, GREEN, BLUE]
 
@@ -97,17 +100,21 @@ class FidgetSpinnerGame:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE]:
-            self.state["rotation_acceleration"] += FLICK_ACCELERATION_INCREMENT
-            self.state["rotation_direction"] = (
-                1 if self.state["rotation_acceleration"] >= 0 else -1
-            )
+            # Apply torque to the spinner
+            torque = FLICK_ACCELERATION_INCREMENT
         else:
-            self.state["rotation_acceleration"] -= FLICK_DECELERATION_INCREMENT
-            if self.state["rotation_acceleration"] < 0:
-                self.state["rotation_acceleration"] = 0
+            torque = -self.state["rotation_direction"] * FLICK_DECELERATION_INCREMENT
 
-        self.state["rotation_angle"] += (
-            self.state["rotation_direction"] * self.state["rotation_acceleration"]
+        # Compute the angular acceleration using torque and moment of inertia
+        angular_acceleration = torque / MOMENT_OF_INERTIA
+
+        # Update the angular velocity and rotation angle using the equations of motion
+        self.state["angular_velocity"] += angular_acceleration * TIME_STEP
+        self.state["rotation_angle"] += self.state["angular_velocity"] * TIME_STEP
+
+        # Update the rotation direction based on the sign of the angular velocity
+        self.state["rotation_direction"] = (
+            1 if self.state["angular_velocity"] >= 0 else -1
         )
 
     def run(self):
