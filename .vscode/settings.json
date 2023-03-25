@@ -1,17 +1,28 @@
 {
     "editor.formatOnSave": true,
     "files.associations": {
-        "*.py": "python",
+        "*.py": "python"
     },
     "python.defaultInterpreterPath": "./venv/bin/python",
-    "python.linting.pylintEnabled": true,
     "python.terminal.activateEnvironment": true,
     "python.formatting.blackPath": "./venv/bin/black",
     "python.formatting.provider": "black",
-    "python.linting.enabled": true,
+    // "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
     "python.linting.pylintPath": "./venv/bin/pylint",
     "python.linting.pylintArgs": [
-        "--disable=E0401"
+        // "--rcfile=pylintrc",
+        "--extension-pkg-whitelist=pygame",
+        "--extension-pkg-whitelist=turtle",
+        // "--disable=no-member",
+    ],
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "./venv/bin/mypy",
+    "python.linting.mypyArgs": [
+        "--ignore-missing-imports",
+        "--follow-imports=skip",
+        "--show-column-numbers",
+        "--show-error-codes",
     ],
     "editor.rulers": [
         88
