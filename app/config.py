@@ -13,4 +13,11 @@ config = {
     "backward_distance": 100,
     "spinner_angle": 120,
     "line_width": 20,
+    "red": (255, 0, 0),
+    "green": (0, 255, 0),
+    "blue": (0, 0, 255),
+    "black": (0, 0, 0),
+    "white": (255, 255, 255),
+    "flick_acceleration_increment": 0.1,
+    "flick_deceleration_increment": 0.1,
 }
