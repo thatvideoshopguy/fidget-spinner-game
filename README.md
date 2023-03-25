@@ -23,14 +23,19 @@ Navigate to the directory
 cd fidget-spinner-game
 ```
 
-Run the game
+## How To Play
+
+Run the PyGame version of the game
 ```bash
-python fidget.py
+python -m app.pygame_version.main
 ```
 
-## Controls
+Run the Turtle version of the game
+```bash
+python -m app.turtle_version.main
+```
 
-- Press the **spacebar** to flick the fidget spinner.
+Press the **spacebar** to flick the fidget spinner.
 
 ## Contributions
 

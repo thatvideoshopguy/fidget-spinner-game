@@ -1,17 +1,27 @@
 {
     "editor.formatOnSave": true,
     "files.associations": {
-        "*.py": "python",
+        "*.py": "python"
     },
     "python.defaultInterpreterPath": "./venv/bin/python",
-    "python.linting.pylintEnabled": true,
     "python.terminal.activateEnvironment": true,
     "python.formatting.blackPath": "./venv/bin/black",
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "./venv/bin/mypy",
+    "python.linting.mypyArgs": [
+        "--python-version",
+        "3.11",
+        "--ignore-missing-imports",
+        "--warn-unused-configs",
+        "--check-untyped-defs",
+        "--strict-optional"
+    ],
+    "python.linting.pylintEnabled": true,
     "python.linting.pylintPath": "./venv/bin/pylint",
     "python.linting.pylintArgs": [
-        "--disable=E0401"
+        "--extension-pkg-whitelist=pygame,turtle",
     ],
     "editor.rulers": [
         88
